@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sascha's Schnelle Gartenhilfe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #031211;
+            color: #E5E7EB;
+        }
+        .hero-section {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 70%, #031211 100%), url('https://images.unsplash.com/photo-1601001815894-4bb6c81416d7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, #031211);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+        }
+        .nav-background {
+            background-color: rgba(29, 46, 27, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .nav-link-separator {
+            border-left: 1px solid rgba(204, 170, 0, 0.5);
+            height: 1.25rem;
+        }
+        .brush-stroke {
+            position: relative;
+            display: inline-block;
+        }
+        .brush-stroke::after {
+            content: '';
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            bottom: -22px;
+            height: 22px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='25' viewBox='0 0 100 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 12.5C12.5 6.25 22.5 18.75 32.5 12.5C42.5 6.25 52.5 18.75 62.5 12.5C72.5 6.25 82.5 18.75 92.5 12.5' stroke='%23CCAA00' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
+        }
+        .promo-band-container {
+            background-image: linear-gradient(to right, #174C32, #052421);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            color: #FFFFFF;
+        }
+        .logo-container img {
+            height: 60px;
+        }
+
+        .bg-custom-main-footer { background-color: #1D2E1B; }
+        .bg-custom-cta-green { background-color: #174C32; }
+        .text-custom-cta-green { color: #174C32; }
+        .border-custom-accent { border-color: #CCAA00; }
+        .text-custom-accent { color: #CCAA00; }
+        .bg-custom-accent { background-color: #CCAA00; }
+        .hover\:text-custom-accent:hover { color: #CCAA00; }
+        .hover\:bg-custom-accent-darker:hover { background-color: #b39700; }
+
+
+        .section-title-underline {
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            border-bottom-width: 4px;
+            border-color: #CCAA00;
+            color: #E5E7EB;
+        }
+        .section-text {
+            color: #D1D5DB;
+        }
+
+        .call-now-button {
+            background-color: #174C32;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .call-now-button:hover {
+            background-color: #113C25;
+        }
+        .call-now-button .icon {
+            background-color: white;
+            color: #174C32;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+        }
+        .experience-box {
+            background-image: linear-gradient(to right, #174C32, #052421);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        /* Swiper Carousel Styles (Reverted to V10 logic) */
+        .services-carousel {
+            padding-top: 2rem;
+            padding-bottom: 7rem;
+            overflow: hidden;
+        }
+        .swiper-container {
+            width: 100%;
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 280px; /* Base width from V15, V10 was 270px */
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0 !important; /* V10: Default hidden */
+            transform: scale(0.6) !important; /* V10: Default small */
+            pointer-events: none !important; /* V10: Not interactive by default */
+            will-change: transform, opacity;
+        }
+
+        .swiper-slide-active,
+        .swiper-slide-next,
+        .swiper-slide-prev {
+            pointer-events: auto !important; /* V10: Focused slides are interactive */
+        }
+
+        .swiper-slide-active {
+            opacity: 1 !important;
+            transform: scale(1.18) !important; /* V10: Active slide larger */
+            z-index: 20 !important;
+        }
+        .swiper-slide-next,
+        .swiper-slide-prev {
+            opacity: 0.65 !important; /* V10: Adjacent slides visible */
+            transform: scale(0.82) !important; /* V10: Adjacent slides scaled */
+            z-index: 10 !important;
+        }
+        /* This selector is key from V10 to hide other slides */
+        .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-prev) {
+            opacity: 0 !important;
+            transform: scale(0.6) !important;
+            z-index: 1 !important; /* Ensure they are behind */
+            pointer-events: none !important;
+        }
+
+
+        .service-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: transparent;
+            border-radius: 0.75rem;
+            width: 100%;
+            overflow: visible;
+        }
+
+        .service-card img {
+            width: 100%;
+            /* V10 effective heights */
+            height: 230px; /* Base height (for non-active, non-adjacent, though they are mostly hidden) */
+            object-fit: cover;
+            border-radius: 0.75rem;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .swiper-slide-active .service-card img {
+            height: 360px; /* V10 active height */
+        }
+        .swiper-slide-next .service-card img,
+        .swiper-slide-prev .service-card img {
+            height: 260px; /* V10 next/prev height */
+        }
+
+
+        .service-info-box {
+            background-image: linear-gradient(to right, #174C32, #052421);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+            width: calc(100% - 20px);
+            max-width: 280px;
+            position: absolute;
+            bottom: -40px; /* V10 active info box position */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 25;
+            transition: opacity 0.6s ease, transform 0.4s ease, font-size 0.4s ease, padding 0.4s ease, bottom 0.4s ease;
+        }
+
+        .swiper-slide:not(.swiper-slide-active) .service-info-box {
+            padding: 0.5rem 0.75rem;
+            bottom: -30px; /* V10 non-active info box position */
+            width: calc(100% - 30px);
+        }
+        .swiper-slide:not(.swiper-slide-active) .service-info-box h3 {
+            font-size: 0.8rem;
+        }
+        .swiper-slide:not(.swiper-slide-active) .service-info-box p {
+            font-size: 0.7rem;
+        }
+
+        .service-info-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .service-info-box p {
+            font-size: 0.8rem;
+            color: #E0E0E0;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #CCAA00 !important;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: #CCAA00 !important;
+            background-color: rgba(29, 46, 27, 0.7);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            transition: background-color 0.3s;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+             background-color: rgba(29, 46, 27, 1);
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.35rem !important;
+        }
+
+        /* Contact Form Styles */
+        .contact-form input, .contact-form textarea {
+            background-color: rgba(29, 46, 27, 0.5);
+            border: 1px solid rgba(204, 170, 0, 0.3);
+            color: #E5E7EB;
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            transition: border-color 0.3s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #CCAA00;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(204, 170, 0, 0.2);
+        }
+        .contact-form ::placeholder {
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-custom-hero-gradient-dark">
+
+    <header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/NWhk3Gz/WhatsApp-Bild-2025-05-19-um-16-59-33-98bf5fb7.jpg" alt="Sascha's Schnelle Gartenhilfe Logo">
+            </div>
+            <nav class="nav-background rounded-lg px-4 py-2 hidden md:flex items-center space-x-1">
+                <a href="#" class="text-white hover:text-custom-accent px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">Startseite</a>
+                <span class="nav-link-separator"></span>
+                <a href="#leistungen" class="text-white hover:text-custom-accent px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">Leistungen</a>
+                <span class="nav-link-separator"></span>
+                <a href="#ueber-uns" class="text-white hover:text-custom-accent px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">Über Uns</a>
+                <span class="nav-link-separator"></span>
+                <a href="#kontakt" class="text-white hover:text-custom-accent px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200">Kontakt</a>
+            </nav>
+            <a href="tel:+4917632930870" class="call-now-button hidden md:inline-flex transform hover:scale-105">
+                <span class="icon"><i class="fas fa-phone-alt"></i></span>
+                Jetzt Anrufen
+            </a>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-custom-accent transition-colors duration-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 bg-opacity-95 mt-2 mx-6 rounded-lg shadow-lg">
+            <a href="#" class="block text-white hover:text-custom-accent px-4 py-3 text-sm font-medium border-b border-gray-700">Startseite</a>
+            <a href="#leistungen" class="block text-white hover:text-custom-accent px-4 py-3 text-sm font-medium border-b border-gray-700">Leistungen</a>
+            <a href="#ueber-uns" class="block text-white hover:text-custom-accent px-4 py-3 text-sm font-medium border-b border-gray-700">Über Uns</a>
+            <a href="#kontakt" class="block text-white hover:text-custom-accent px-4 py-3 text-sm font-medium">Kontakt</a>
+            <a href="tel:+4917632930870" class="block bg-custom-cta-green hover:opacity-90 text-white text-center font-semibold py-3 px-4 mt-2 rounded-b-lg">Jetzt Anrufen</a>
+        </div>
+    </header>
+
+    <section class="hero-section text-center pt-20">
+        <div class="hero-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-10 leading-tight"><span class="brush-stroke">Ihr Traumgarten, unsere Leidenschaft.</span></h1>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto px-4">Professionelle Gartengestaltung und -pflege – schnell, zuverlässig und ganz nach Ihren Wünschen.</p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#leistungen" class="bg-white text-custom-cta-green font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 inline-block text-lg">Unsere Leistungen</a>
+                <a href="#kontakt" class="border-2 border-white text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-white hover:text-custom-cta-green transform hover:scale-105 inline-block text-lg">Kontakt aufnehmen</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="promo-band" class="py-12 md:py-16">
+        <div class="container mx-auto px-6">
+            <div class="promo-band-container">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="md:w-2/3 mb-8 md:mb-0 text-center md:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Bereit für Ihren perfekten Garten?</h2>
+                        <p class="text-lg md:text-xl mb-6">Ob Neuanlage, Umgestaltung oder regelmäßige Pflege – wir sind Ihr kompetenter Partner für alle Gartenarbeiten. Entdecken Sie, wie wir Ihren Garten in eine Wohlfühloase verwandeln können. Fragen Sie jetzt unverbindlich an und sichern Sie sich Ihren Termin!</p>
+                    </div>
+                    <div class="md:w-1/3 text-center md:text-right">
+                        <a href="#kontakt" class="bg-white text-custom-cta-green font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transform hover:scale-105 inline-block text-lg">Mehr Erfahren</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ueber-uns" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="md:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1601654253194-260e0b6984f9?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gartenarbeit Team" class="rounded-lg shadow-2xl w-full h-auto object-cover" style="max-height: 500px;">
+                    <div class="experience-box absolute -bottom-6 -right-6 md:-bottom-8 md:-right-8 text-center transform translate-x-1/4 -translate-y-1/4 md:translate-x-0 md:-translate-y-0">
+                        <p class="text-3xl font-bold">5+</p>
+                        <p class="text-sm">Jahre Erfahrung</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-6 section-title-underline inline-block">Wo Pflanzen ihre Menschen finden.</h2>
+                    <p class="text-lg section-text mb-8">Seit über fünf Jahren verwandeln wir Gärten in grüne Paradiese. Mit Leidenschaft, Fachwissen und einem Auge fürs Detail schaffen wir Außenbereiche, die nicht nur schön aussehen, sondern auch zum Leben und Entspannen einladen. Vertrauen Sie auf unsere Erfahrung für Ihr nächstes Gartenprojekt.</p>
+                    <a href="#kontakt" class="bg-custom-accent text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-custom-accent-darker transition duration-300 ease-in-out transform hover:scale-105 inline-block text-lg">Mehr über uns</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leistungen" class="py-20 services-carousel">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16"> <span class="section-title-underline">Unsere Kernkompetenzen</span>
+            </h2>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rasen und Wege">
+                        <div class="service-info-box">
+                            <h3>Rasen & Wege</h3>
+                            <p>Perfekter Schnitt, sattes Grün und saubere Pfade.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1721305254301-bc22475ccf14?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pflanzen für Frühjahr">
+                        <div class="service-info-box">
+                            <h3>Pflanzen für Frühjahr</h3>
+                            <p>Blütenpracht und saisonale Highlights für Ihren Garten.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1680124744736-859f16257ef0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gehölzschnitt">
+                        <div class="service-info-box">
+                            <h3>Gehölzschnitt</h3>
+                            <p>Formschnitt, Pflege und Fällungen vom Experten.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1560991996-7f87a4a64062?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hochbeete">
+                        <div class="service-info-box">
+                            <h3>Hochbeete</h3>
+                            <p>Maßgefertigte Hochbeete für komfortables Gärtnern.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1682021818030-d92eca06c75e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ertragsoptimierung">
+                        <div class="service-info-box">
+                            <h3>Ertragsoptimierung</h3>
+                            <p>Fachkundiger Schnitt für reiche Ernten im Obstgarten.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Urlaubspflege">
+                        <div class="service-info-box">
+                            <h3>Urlaubspflege</h3>
+                            <p>Wir kümmern uns um Ihren Garten, während Sie entspannen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">
+                    <span class="section-title-underline">Nehmen Sie Kontakt auf</span>
+                </h2>
+                <p class="section-text mt-4 max-w-2xl mx-auto">
+                    Haben Sie Fragen oder möchten Sie ein unverbindliches Angebot? Füllen Sie einfach das Formular aus oder rufen Sie uns an. Wir freuen uns auf Ihre Nachricht!
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-custom-main-footer p-8 md:p-12 rounded-xl shadow-2xl contact-form">
+                <form action="#" method="POST"> <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                            <input type="text" name="name" id="name" required placeholder="Ihr Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">E-Mail</label>
+                            <input type="email" name="email" id="email" required placeholder="Ihre E-Mail-Adresse">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Betreff</label>
+                        <input type="text" name="subject" id="subject" required placeholder="Betreff Ihrer Anfrage">
+                    </div>
+                    <div class="mb-8">
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Nachricht</label>
+                        <textarea name="message" id="message" rows="5" required placeholder="Ihre Nachricht an uns..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-custom-accent text-white font-semibold py-3 px-10 rounded-lg shadow-md hover:bg-custom-accent-darker transition duration-300 ease-in-out transform hover:scale-105 text-lg">
+                            Nachricht Senden
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-custom-main-footer text-white py-12 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                 <img src="https://i.ibb.co/NWhk3Gz/WhatsApp-Bild-2025-05-19-um-16-59-33-98bf5fb7.jpg" alt="Sascha's Schnelle Gartenhilfe Logo Klein" class="h-12 mx-auto mb-4">
+                <p class="text-gray-400 text-sm">Ihr Partner für professionelle Gartengestaltung und -pflege.</p>
+            </div>
+            <div class="mb-6">
+                <a href="tel:+4917632930870" class="text-custom-accent hover:underline mx-2">Tel: 0176 329 308 70</a>
+                <span class="text-gray-500 mx-1">|</span>
+                <a href="mailto:ds.hilfe@web.de" class="text-custom-accent hover:underline mx-2">E-Mail: ds.hilfe@web.de</a>
+            </div>
+            <div class="text-gray-500 text-sm">
+                <p>&copy; <span id="currentYear"></span> Sascha's Schnelle Gartenhilfe. Alle Rechte vorbehalten.</p>
+                <p class="mt-1">
+                    <a href="#impressum" class="hover:text-custom-accent transition-colors">Impressum</a> | 
+                    <a href="#datenschutz" class="hover:text-custom-accent transition-colors">Datenschutz</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = document.querySelector('header').offsetHeight || 70;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+            });
+        });
+
+        // Initialize Swiper (Reverted to V10 output configuration)
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            loopAdditionalSlides: 4, // V10 value
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 35,    // V10 value
+                depth: 220,     // V10 value
+                modifier: 1.2,  // V10 value
+                slideShadows: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+</body>
+</html>
