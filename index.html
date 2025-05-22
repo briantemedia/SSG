@@ -18,6 +18,7 @@
             background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 70%, #031211 100%), url('https://images.unsplash.com/photo-1601001815894-4bb6c81416d7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
+            min-height: 70vh; /* Ensure it's not too small on mobile */
             height: 80vh;
             display: flex;
             flex-direction: column;
@@ -72,8 +73,14 @@
             color: #FFFFFF;
         }
         .logo-container img {
-            height: 60px;
+            height: 50px; /* Slightly reduced for better mobile header space */
         }
+        @media (min-width: 768px) { /* md breakpoint */
+            .logo-container img {
+                height: 60px;
+            }
+        }
+
 
         .bg-custom-main-footer { background-color: #1D2E1B; }
         .bg-custom-cta-green { background-color: #174C32; }
@@ -128,54 +135,53 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
 
-        /* Swiper Carousel Styles (Reverted to V10 logic) */
+        /* Swiper Carousel Styles */
         .services-carousel {
-            padding-top: 2rem;
+            padding-top: 1rem; 
             padding-bottom: 7rem;
             overflow: hidden;
         }
         .swiper-container {
             width: 100%;
-            padding-top: 70px;
-            padding-bottom: 70px;
+            padding-top: 30px; /* Reduced top padding for swiper container */
+            padding-bottom: 50px; 
         }
         .swiper-slide {
             background-position: center;
             background-size: cover;
-            width: 280px; /* Base width from V15, V10 was 270px */
+            width: 280px;
             height: auto;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            opacity: 0 !important; /* V10: Default hidden */
-            transform: scale(0.6) !important; /* V10: Default small */
-            pointer-events: none !important; /* V10: Not interactive by default */
+            opacity: 0 !important;
+            transform: scale(0.6) !important;
+            pointer-events: none !important;
             will-change: transform, opacity;
         }
 
         .swiper-slide-active,
         .swiper-slide-next,
         .swiper-slide-prev {
-            pointer-events: auto !important; /* V10: Focused slides are interactive */
+            pointer-events: auto !important;
         }
 
         .swiper-slide-active {
             opacity: 1 !important;
-            transform: scale(1.18) !important; /* V10: Active slide larger */
+            transform: scale(1.18) !important;
             z-index: 20 !important;
         }
         .swiper-slide-next,
         .swiper-slide-prev {
-            opacity: 0.65 !important; /* V10: Adjacent slides visible */
-            transform: scale(0.82) !important; /* V10: Adjacent slides scaled */
+            opacity: 0.65 !important;
+            transform: scale(0.82) !important;
             z-index: 10 !important;
         }
-        /* This selector is key from V10 to hide other slides */
         .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-prev) {
             opacity: 0 !important;
             transform: scale(0.6) !important;
-            z-index: 1 !important; /* Ensure they are behind */
+            z-index: 1 !important;
             pointer-events: none !important;
         }
 
@@ -193,8 +199,7 @@
 
         .service-card img {
             width: 100%;
-            /* V10 effective heights */
-            height: 230px; /* Base height (for non-active, non-adjacent, though they are mostly hidden) */
+            height: 230px;
             object-fit: cover;
             border-radius: 0.75rem;
             display: block;
@@ -202,11 +207,11 @@
             transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .swiper-slide-active .service-card img {
-            height: 360px; /* V10 active height */
+            height: 360px;
         }
         .swiper-slide-next .service-card img,
         .swiper-slide-prev .service-card img {
-            height: 260px; /* V10 next/prev height */
+            height: 260px;
         }
 
 
@@ -220,7 +225,7 @@
             width: calc(100% - 20px);
             max-width: 280px;
             position: absolute;
-            bottom: -40px; /* V10 active info box position */
+            bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 25;
@@ -229,7 +234,7 @@
 
         .swiper-slide:not(.swiper-slide-active) .service-info-box {
             padding: 0.5rem 0.75rem;
-            bottom: -30px; /* V10 non-active info box position */
+            bottom: -30px;
             width: calc(100% - 30px);
         }
         .swiper-slide:not(.swiper-slide-active) .service-info-box h3 {
@@ -285,6 +290,31 @@
         .contact-form ::placeholder {
             color: #9CA3AF;
         }
+
+        /* Progress Bar Styles */
+        .progress-bar-container {
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #D1D5DB;
+            margin-bottom: 0.25rem;
+        }
+        .progress-bar-bg {
+            background-color: rgba(29, 46, 27, 0.7);
+            border-radius: 0.375rem;
+            height: 0.75rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background-color: #174C32;
+            height: 100%;
+            border-radius: 0.375rem;
+            transition: width 1s ease-in-out;
+        }
+
     </style>
 </head>
 <body class="bg-custom-hero-gradient-dark">
@@ -370,11 +400,11 @@
 
     <section id="leistungen" class="py-20 services-carousel">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16"> <span class="section-title-underline">Unsere Kernkompetenzen</span>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8"> 
+                <span class="section-title-underline">Unsere Kernkompetenzen</span>
             </h2>
         </div>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
+        <div class="swiper-container"> <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="service-card">
                         <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rasen und Wege">
@@ -433,6 +463,43 @@
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <section id="unsere-philosophie" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-6 section-title-underline inline-block">Grüne Zukunft, gesunde Gärten.</h2>
+                    <p class="text-lg section-text mb-8">
+                        Wir glauben an nachhaltige Gartenarbeit, die Mensch und Natur in Einklang bringt. Unser Ziel ist es, nicht nur ästhetisch ansprechende, sondern auch ökologisch wertvolle Gärten zu schaffen, die Generationen überdauern.
+                    </p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-label">
+                            <span>Ökologische Materialien</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-label">
+                            <span>Regionale Pflanzenwahl</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                     <a href="#kontakt" class="mt-8 bg-custom-accent text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-custom-accent-darker transition duration-300 ease-in-out transform hover:scale-105 inline-block text-lg">
+                        Unsere Werte entdecken
+                    </a>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1707129901265-c5bfee67a60b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nachhaltige Gartengestaltung Grafik" class="rounded-lg shadow-2xl w-full h-auto object-cover" style="max-height: 500px;">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -518,7 +585,7 @@
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    const headerOffset = document.querySelector('header').offsetHeight || 70;
+                    const headerOffset = document.querySelector('header').offsetHeight || 70; // Fallback if header is hidden
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
@@ -526,21 +593,21 @@
             });
         });
 
-        // Initialize Swiper (Reverted to V10 output configuration)
+        // Initialize Swiper
         var swiper = new Swiper('.swiper-container', {
             effect: 'coverflow',
             grabCursor: true,
             centeredSlides: true,
             slidesPerView: 'auto',
             loop: true,
-            loopAdditionalSlides: 4, // V10 value
+            loopAdditionalSlides: 4, 
             watchSlidesVisibility: true,
             watchSlidesProgress: true,
             coverflowEffect: {
                 rotate: 0,
-                stretch: 35,    // V10 value
-                depth: 220,     // V10 value
-                modifier: 1.2,  // V10 value
+                stretch: 15,    // Reduced stretch further
+                depth: 200,     // Adjusted depth
+                modifier: 1.2,  
                 slideShadows: false,
             },
             pagination: {
